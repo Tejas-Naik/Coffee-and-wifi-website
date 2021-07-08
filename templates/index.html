@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cafe and Wifi Website</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav class="bg-dark navbar-dark">
+      <div class="container">
+        <a href="" class="navbar-brand"
+          ><i class="fas fa-tree mr-2"></i>LapCafe</a
+        >
+      </div>
+    </nav>
+    <section id="header" class="jumbotron text-center">
+      <h1 class="display-3">Laptop Friendly Cafes</h1>
+      <p class="lead">
+        Get to know the best cafes that supports your laptop so you can code
+        there too!
+      </p>
+      <a href="/#cafes" class="btn btn-primary button-greet">Browse Cafes</a>
+      <a href="/add" class="btn btn-secondary button-greet">Add Cafe</a>
+    </section>
+    <section id="cafes">
+      {% for cafe in cafes %}
+      <div id="container">
+        <div class="product-details">
+          <h1>{{ cafe.name }}</h1>
+          <span class="hint-star star">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star-o" aria-hidden="true"></i>
+          </span>
+
+          <p class="information">Location: {{ cafe.location }} <br /></p>
+          <p class="information">
+            Google Maps: <a href="{{ cafe.map_url }}">goto map</a>
+          </p>
+
+          <div style="margin-left: 35px">
+            <button class="btn">
+              <span class="price" style="width: 100px">Remove</span>
+              <span class="shopping-cart"
+                ><i class="fa fa-trash" aria-hidden="true"></i
+              ></span>
+              <a href="{{url_for('delete_cafe')}}"
+                ><span class="buy" style="width: 110px">Delete</span></a
+              >
+            </button>
+          </div>
+
+          <div class="control">
+            <button class="btn">
+              <span class="price">☕{{ cafe.coffee_price}}</span>
+              <span class="shopping-cart"
+                ><i class="fa fa-shopping-cart" aria-hidden="true"></i
+              ></span>
+              <span class="buy">Get now</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="product-image">
+          <img src="{{cafe.img_url}}" alt="" />
+
+          <div class="info">
+            <h2>Description</h2>
+            <ul>
+              <li><strong>Wifi : </strong>{{ cafe.has_wifi }}</li>
+              <li><strong>Sockets : </strong>{{ cafe.has_sockets }}</li>
+              <li><strong>seats: </strong>{{ cafe.seats }}</li>
+              <li>
+                <strong>Can Take Calls: </strong>{{ cafe.can_take_calls }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+    </section>
+  </body>
+</html>
